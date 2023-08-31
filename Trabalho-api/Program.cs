@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Trabalho_api.Context;
+using Microsoft.Extensions.DependencyInjection;
+using Trabalho_api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Trabalho_apiContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Trabalho_apiContext") ?? throw new InvalidOperationException("Connection string 'Trabalho_apiContext' not found.")));
 
 // Add services to the container.
 
@@ -12,9 +15,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var connexao = builder.Configuration.GetConnectionString("DataBase");
-builder.Services.AddDbContext<ApplicationDbContext>(
-    x => x.UseMySql(connexao, ServerVersion.Parse("8.0.1")));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
