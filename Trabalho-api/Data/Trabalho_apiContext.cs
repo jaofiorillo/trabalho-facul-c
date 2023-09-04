@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Trabalho_api;
+﻿using Microsoft.EntityFrameworkCore;
+using Trabalho_api.Models;
 
 namespace Trabalho_api.Data
 {
@@ -13,7 +9,10 @@ namespace Trabalho_api.Data
             : base(options)
         {
         }
-
-        public DbSet<Trabalho_api.teste> teste { get; set; } = default!;
+        
+        public DbSet<User> user { get; set; } = default!;
+        public DbSet<Endereco> endereco { get; set; } = default!;
+        public DbSet<Produto> produto { get; set; } = default!;
+        public DbSet<Pedido> pedido { get; set; } = default!;
     }
 }

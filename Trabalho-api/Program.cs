@@ -4,7 +4,9 @@ using Trabalho_api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Trabalho_apiContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Trabalho_apiContext") ?? throw new InvalidOperationException("Connection string 'Trabalho_apiContext' not found.")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Trabalho_apiContext"),
+        new MySqlServerVersion(new Version(8, 1, 00)))); 
 
 // Add services to the container.
 
