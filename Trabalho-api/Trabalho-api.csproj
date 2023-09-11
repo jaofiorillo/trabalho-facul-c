@@ -36,4 +36,13 @@
       <Folder Include="Migrations\" />
     </ItemGroup>
 
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Pedido\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Pedido\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Pedido\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Pedido\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Pedido\Index.cshtml" />
+    </ItemGroup>
+
 </Project>
