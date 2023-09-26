@@ -29,6 +29,8 @@
 
     <ItemGroup>
       <Compile Remove="blaController.cs" />
+      <Compile Remove="Migrations\20230904223903_inicial.cs" />
+      <Compile Remove="Migrations\20230904223903_inicial.Designer.cs" />
     </ItemGroup>
 
 

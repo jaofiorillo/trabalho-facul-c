@@ -17,6 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<DoacaoRepository>();
+builder.Services.AddScoped<DoacaoService>();
 
 var app = builder.Build();
 

@@ -24,12 +24,43 @@ namespace Trabalho_api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    telefone = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     senha = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_user", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "doacao",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    descricao = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    preco = table.Column<float>(type: "float", nullable: false),
+                    situacao = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    file = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    vendedorid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_doacao", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_doacao_user_vendedorid",
+                        column: x => x.vendedorid,
+                        principalTable: "user",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -60,100 +91,67 @@ namespace Trabalho_api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "pedido",
+                name: "empresa",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    precoTotal = table.Column<float>(type: "float", nullable: false),
-                    userCadastroid = table.Column<int>(type: "int", nullable: false),
-                    userCompradorid = table.Column<int>(type: "int", nullable: false),
-                    Enderecoid = table.Column<int>(type: "int", nullable: false)
+                    razaoSocial = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    cnpj = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    enderecoid = table.Column<int>(type: "int", nullable: false),
+                    representanteid = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_pedido", x => x.id);
+                    table.PrimaryKey("PK_empresa", x => x.id);
                     table.ForeignKey(
-                        name: "FK_pedido_endereco_Enderecoid",
-                        column: x => x.Enderecoid,
+                        name: "FK_empresa_endereco_enderecoid",
+                        column: x => x.enderecoid,
                         principalTable: "endereco",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_pedido_user_userCadastroid",
-                        column: x => x.userCadastroid,
-                        principalTable: "user",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_pedido_user_userCompradorid",
-                        column: x => x.userCompradorid,
+                        name: "FK_empresa_user_representanteid",
+                        column: x => x.representanteid,
                         principalTable: "user",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateTable(
-                name: "produto",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    descricao = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    preco = table.Column<float>(type: "float", nullable: false),
-                    Pedidoid = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_produto", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_produto_pedido_Pedidoid",
-                        column: x => x.Pedidoid,
-                        principalTable: "pedido",
-                        principalColumn: "id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.CreateIndex(
+                name: "IX_doacao_vendedorid",
+                table: "doacao",
+                column: "vendedorid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_empresa_enderecoid",
+                table: "empresa",
+                column: "enderecoid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_empresa_representanteid",
+                table: "empresa",
+                column: "representanteid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_endereco_userid",
                 table: "endereco",
                 column: "userid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_pedido_Enderecoid",
-                table: "pedido",
-                column: "Enderecoid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_pedido_userCadastroid",
-                table: "pedido",
-                column: "userCadastroid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_pedido_userCompradorid",
-                table: "pedido",
-                column: "userCompradorid");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_produto_Pedidoid",
-                table: "produto",
-                column: "Pedidoid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "produto");
+                name: "doacao");
 
             migrationBuilder.DropTable(
-                name: "pedido");
+                name: "empresa");
 
             migrationBuilder.DropTable(
                 name: "endereco");

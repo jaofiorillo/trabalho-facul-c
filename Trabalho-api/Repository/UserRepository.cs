@@ -22,6 +22,11 @@ public class UserRepository : IUserRepository
     {
         return await dbContext.user.FirstOrDefaultAsync(u => u.id == id);
     }
+    
+    public async Task<User?> getByEmail(string email)
+    {
+        return await dbContext.user.FirstOrDefaultAsync(u => u.email == email);
+    }
 
     public async Task<User> save(User? user)
     {

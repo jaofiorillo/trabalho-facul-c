@@ -14,13 +14,15 @@ public class UserService
         repository = userRepository;
     }
     
-    public async Task<User?> createUser(UserRequest request)
+    public async Task<UserResponse?> createUser(UserRequest request)
     {
-        validarEmail(request.email);
-        return await repository.save(User.of(request));
+        validarDigitacaoEmail(request.email);
+        await validarEmailExistente(request.email);
+        var user = await repository.save(User.of(request));
+        return UserResponse.convertFrom(user);
     }
 
-    private void validarEmail(string email)
+    private void validarDigitacaoEmail(string email)
     {
         var pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
         var regex = new Regex(pattern);
@@ -29,15 +31,31 @@ public class UserService
             throw new Exception("Email invalido");
         }
     }
-
-    public async Task<List<User?>> getAll()
+    
+    private async Task validarEmailExistente(string email)
     {
-        return await repository.findAll();
+        var user = await repository.getByEmail(email);
+        if (user != null)
+        {
+            throw new Exception("Email já cadastrado");
+        }
+    }
+    
+    public async Task<List<UserResponse?>> getAll()
+    {
+        var users = await repository.findAll();
+        return UserResponse.convertFrom(users);
+    }
+    
+    public async Task<UserResponse?> getById(int id)
+    {
+        var user = await repository.getById(id);
+        return UserResponse.convertFrom(user);
     }
 
     public async Task<User?> atualizarUser(UserRequest request)
     {
-        validarEmail(request.email);
+        validarDigitacaoEmail(request.email);
         return await repository.atualizar(User.of(request));
     }
 

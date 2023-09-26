@@ -16,4 +16,8 @@ public class UserRequest
     [Required]
     [StringLength(100)]
     public string senha { get; set; }
+    
+    [Required]
+    [StringLength(11)]
+    public string telefone { get; set; }
 }

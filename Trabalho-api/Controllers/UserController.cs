@@ -28,6 +28,13 @@ public class UserController : ControllerBase
         var users = await service.getAll();
         return Ok(users);
     }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var user = await service.getById(id);
+        return Ok(user);
+    }
 
     [HttpPut]
     public async Task<IActionResult> AtualizarUser(UserRequest request)
@@ -39,7 +46,7 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(int id)
     {
-        var boll = service.deleteUser(id);
+        var boll = await service.deleteUser(id);
         return Ok(boll);
     }
 }
