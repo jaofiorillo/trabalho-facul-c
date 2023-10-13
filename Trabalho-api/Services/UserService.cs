@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Trabalho_api.Dto;
 using Trabalho_api.Models;
@@ -49,7 +50,7 @@ public class UserService
     
     public async Task<UserResponse?> getById(int id)
     {
-        var user = await repository.getById(id);
+        var user = await findUserById(id);
         return UserResponse.convertFrom(user);
     }
 
@@ -65,5 +66,19 @@ public class UserService
         return user != null
             ? await repository.delete(user)
             : throw new Exception("Usuário não encontrado");
+    }
+
+    public async Task<User?> findUserById(int id)
+    {
+        var user =  repository.getById(id);
+        return user != null
+            ? await user
+            : throw new ValidationException("User não encontrado");
+    }
+
+    public async Task vincularEndereco(Endereco endereco, User user)
+    {
+        user.vincularEndereco(endereco);
+        await repository.atualizar(user);
     }
 }

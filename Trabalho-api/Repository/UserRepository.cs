@@ -28,14 +28,14 @@ public class UserRepository : IUserRepository
         return await dbContext.user.FirstOrDefaultAsync(u => u.email == email);
     }
 
-    public async Task<User> save(User? user)
+    public async Task<User> save(User user)
     {
         dbContext.user.Add(user);
         await dbContext.SaveChangesAsync();
         return user;
     }
 
-    public async Task<User?> atualizar(User? user)
+    public async Task<User?> atualizar(User user)
     {
         dbContext.Update(user);
         await dbContext.SaveChangesAsync();

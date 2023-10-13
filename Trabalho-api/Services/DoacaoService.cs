@@ -8,17 +8,17 @@ namespace Trabalho_api.Services;
 public class DoacaoService
 {
     private readonly DoacaoRepository repository;
-    private readonly UserRepository userRepository;
+    private readonly UserService userService;
 
-    public DoacaoService(DoacaoRepository doacaoRepository, UserRepository _userRepository)
+    public DoacaoService(DoacaoRepository doacaoRepository, UserService _userService)
     {
         repository = doacaoRepository;
-        userRepository = _userRepository;
+        userService = _userService;
     }
     
     public async Task<DoacaoResponse?> save(DoacaoRequest request)
     {
-        var user = await userRepository.getById(request.vendedorId);
+        var user = await userService.findUserById(request.vendedorId);
         var doacao = Doacao.of(request, user);
         doacao.pulicarDoacao();
         return DoacaoResponse.convertFrom(await repository.save(doacao));
@@ -26,28 +26,15 @@ public class DoacaoService
     
     public async Task<List<DoacaoResponse?>> getAll()
     {
-        var doacoes = await incluirVendedores(await repository.findAll());
+        var doacoes = await repository.findAll();
         return DoacaoResponse.convertFrom(doacoes);
-    }
-
-    private async Task<List<Doacao>> incluirVendedores(List<Doacao> doacoes)
-    {
-        return doacoes != null 
-            ? await repository.incluirVendedores(doacoes)
-            : Enumerable.Empty<Doacao>().ToList();
-    }
-    
-    private async Task<Doacao> incluirVendedor(Doacao doacao)
-    {
-        return await repository.incluirVendedor(doacao.id);
-
     }
 
     public async Task<DoacaoResponse?> finalizarSituacaoDoacao(int id)
     {
         var doacao = await getById(id);
         doacao.finalizarDoacao();
-        await incluirVendedor(doacao);
+        await repository.incluirVendedor(doacao.id);
         return DoacaoResponse.convertFrom(await repository.atualizar(doacao));
     }
 
@@ -57,5 +44,11 @@ public class DoacaoService
         return doacao != null
             ? doacao
             : throw new ValidationException("Doação não encontrada");
+    }
+
+    public async Task<List<DoacaoResponse?>> getDoacoesById(int id)
+    {
+        var doacoes = await repository.findByVendedor(id);
+        return DoacaoResponse.convertFrom(doacoes);
     }
 }

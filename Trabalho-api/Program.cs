@@ -19,9 +19,10 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DoacaoRepository>();
 builder.Services.AddScoped<DoacaoService>();
+builder.Services.AddScoped<EnderecoRepository>();
+builder.Services.AddScoped<EnderecoService>();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -10,7 +10,6 @@ public class User
     public string telefone { get; set; }
     public List<Endereco> enderecos { get; set; }
     public string senha { get; set; }
-    
 
     public static User? of(UserRequest request)
     {
@@ -20,5 +19,10 @@ public class User
         user.senha = request.senha;
         user.telefone = request.telefone;
         return user;
+    }
+
+    public void vincularEndereco(Endereco endereco)
+    {
+        enderecos.Add(endereco);
     }
 }

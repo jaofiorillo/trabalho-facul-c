@@ -1,3 +1,5 @@
+using Trabalho_api.Dto;
+
 namespace Trabalho_api.Models;
 
 public class Endereco
@@ -7,4 +9,18 @@ public class Endereco
     public string rua { get; set; }
     public string cidade { get; set; }
     public string uf { get; set; }
-}
+    
+    public static Endereco of(EnderecoRequest request)
+    {
+        var endereco = new Endereco();
+        endereco.cidade = request.cidade;
+        endereco.rua = request.rua;
+        endereco.uf = request.uf;
+        return endereco;
+    }
+
+    public void vincularUser(User novoUser)
+    {
+        user = novoUser;
+    }
+} 

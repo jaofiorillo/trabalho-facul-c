@@ -13,6 +13,4 @@ public interface IDoacaoRepository
     Task<Doacao?> atualizar(Doacao? user);
     
     Task<bool> delete(Doacao? user);
-
-    Task<List<Doacao>> incluirVendedores(List<Doacao> doacoes);
 }

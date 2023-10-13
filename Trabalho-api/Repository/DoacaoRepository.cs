@@ -15,7 +15,7 @@ public class DoacaoRepository : IDoacaoRepository
     
     public async Task<List<Doacao>> findAll()
     {
-        return await dbContext.doacao.ToListAsync();
+        return await dbContext.doacao.Include(d => d.vendedor).ToListAsync();
     }
 
     public async Task<Doacao?> getById(int id)
@@ -23,31 +23,25 @@ public class DoacaoRepository : IDoacaoRepository
         return await dbContext.doacao.FirstOrDefaultAsync(u => u.id == id);
     }
 
-    public async Task<Doacao?> save(Doacao? doacao)
+    public async Task<Doacao?> save(Doacao doacao)
     {
         dbContext.doacao.Add(doacao);
         await dbContext.SaveChangesAsync();
         return doacao;
     }
 
-    public async Task<Doacao?> atualizar(Doacao? doacao)
+    public async Task<Doacao?> atualizar(Doacao doacao)
     {
         dbContext.Update(doacao);
         await dbContext.SaveChangesAsync();
         return doacao;
     }
 
-    public async Task<bool> delete(Doacao? doacao)
+    public async Task<bool> delete(Doacao doacao)
     {
         dbContext.doacao.Remove(doacao);
         await dbContext.SaveChangesAsync();
         return true;
-    }
-
-    public async Task<List<Doacao>> incluirVendedores(List<Doacao> doacoes)
-    {
-        doacoes = dbContext.doacao.Include(d => d.vendedor).ToList();
-        return doacoes;
     }
     
     public async Task<Doacao> incluirVendedor(int doacaoId)
@@ -55,5 +49,11 @@ public class DoacaoRepository : IDoacaoRepository
         var doacao = await dbContext.doacao.Include(d => d.vendedor)
             .FirstOrDefaultAsync(d => d.id == doacaoId);
         return doacao;
+    }
+    
+    public async Task<List<Doacao>> findByVendedor(int id)
+    {
+        return dbContext.doacao.Include(d => d.vendedor)
+            .Where(d => d.vendedor.id == id).ToList();
     }
 }

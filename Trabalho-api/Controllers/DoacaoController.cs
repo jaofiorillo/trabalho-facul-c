@@ -35,4 +35,11 @@ public class DoacaoController : ControllerBase
         var doacao = await service.finalizarSituacaoDoacao(id);
         return Ok(doacao);
     }
+
+    [HttpGet("doacoes-usuario/{id}")]
+    public async Task<IActionResult> GetDoacoesByUsuario(int id)
+    {
+        var doacoes = await service.getDoacoesById(id);
+        return Ok(doacoes);
+    }
 }
