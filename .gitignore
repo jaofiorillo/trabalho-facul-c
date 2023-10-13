@@ -1,6 +1,7 @@
 # Arquivos binários
 *.dll
 *.exe
+*.pdb
 
 # Arquivos gerados durante a compilação
 bin/

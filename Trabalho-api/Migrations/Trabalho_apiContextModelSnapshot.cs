@@ -36,9 +36,6 @@ namespace Trabalho_api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<float>("preco")
-                        .HasColumnType("float");
-
                     b.Property<string>("situacao")
                         .IsRequired()
                         .HasColumnType("longtext");
