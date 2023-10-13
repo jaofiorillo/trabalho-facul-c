@@ -15,4 +15,5 @@ public interface IUserRepository
     Task<bool> delete(User? user);
 
     Task<User?> getByEmail(string email);
+
 }

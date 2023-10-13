@@ -45,6 +45,7 @@ namespace Trabalho_api.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     descricao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    preco = table.Column<float>(type: "float", nullable: false),
                     situacao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     file = table.Column<string>(type: "longtext", nullable: false)

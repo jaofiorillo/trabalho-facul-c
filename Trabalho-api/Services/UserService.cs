@@ -70,9 +70,9 @@ public class UserService
 
     public async Task<User?> findUserById(int id)
     {
-        var user =  await repository.getById(id);
+        var user =  repository.getById(id);
         return user != null
-            ?  user
+            ? await user
             : throw new ValidationException("User não encontrado");
     }
 
