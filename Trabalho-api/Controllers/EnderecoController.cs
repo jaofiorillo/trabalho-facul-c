@@ -18,7 +18,14 @@ public class EnderecoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Save(EnderecoRequest request)
     {
-        var doacao = await service.vincularEndereco(request);
-        return Ok(doacao);
+        var endereco = await service.vincularEndereco(request);
+        return Ok(endereco);
+    }
+    
+    [HttpGet("user/{id}")]
+    public async Task<IActionResult> GetByUserId(int id)
+    {
+        var enderecos = await service.getEnderecosByUserId(id);
+        return Ok(enderecos);
     }
 }

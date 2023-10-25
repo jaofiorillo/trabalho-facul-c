@@ -63,9 +63,7 @@ public class UserService
     public async Task<bool> deleteUser(int id)
     {
         var user = await repository.getById(id);
-        return user != null
-            ? await repository.delete(user)
-            : throw new Exception("Usuário não encontrado");
+        return await repository.delete(user);
     }
 
     public async Task<User?> findUserById(int id)
@@ -80,5 +78,13 @@ public class UserService
     {
         user.vincularEndereco(endereco);
         await repository.atualizar(user);
+    }
+
+    public async Task<User?> findUserByEmailAndSenha(string email, string senha)
+    {
+        var user =  repository.getByEmailAndSenha(email, senha);
+        return user != null
+            ? await user
+            : throw new ValidationException("User não encontrado");
     }
 }

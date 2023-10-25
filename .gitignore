@@ -1,7 +1,5 @@
-# Arquivos binários
 *.dll
 *.exe
 
-# Arquivos gerados durante a compilação
 bin/
 obj/

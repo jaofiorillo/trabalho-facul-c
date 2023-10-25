@@ -32,13 +32,19 @@ public class DoacaoService
 
     public async Task<DoacaoResponse?> finalizarSituacaoDoacao(int id)
     {
-        var doacao = await getById(id);
+        var doacao = await findById(id);
         doacao.finalizarDoacao();
         await repository.incluirVendedor(doacao.id);
         return DoacaoResponse.convertFrom(await repository.atualizar(doacao));
     }
 
-    private async Task<Doacao> getById(int id)
+    public async Task<bool> deletarDoacao(int id)
+    {
+        var doacao = await findById(id);
+        return await repository.delete(doacao);
+    }
+
+    private async Task<Doacao> findById(int id)
     {
         var doacao = await repository.getById(id);
         return doacao != null
@@ -46,9 +52,14 @@ public class DoacaoService
             : throw new ValidationException("Doação não encontrada");
     }
 
-    public async Task<List<DoacaoResponse?>> getDoacoesById(int id)
+    public async Task<List<DoacaoResponse?>> getDoacoesByUserId(int id)
     {
-        var doacoes = await repository.findByVendedor(id);
+        var doacoes = await findDoacoesByUserId(id);
         return DoacaoResponse.convertFrom(doacoes);
+    }
+
+    private async Task<List<Doacao>> findDoacoesByUserId(int id)
+    {
+        return await repository.findByVendedor(id);
     }
 }

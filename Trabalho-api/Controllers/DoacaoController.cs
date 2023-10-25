@@ -39,7 +39,14 @@ public class DoacaoController : ControllerBase
     [HttpGet("doacoes-usuario/{id}")]
     public async Task<IActionResult> GetDoacoesByUsuario(int id)
     {
-        var doacoes = await service.getDoacoesById(id);
+        var doacoes = await service.getDoacoesByUserId(id);
         return Ok(doacoes);
+    }
+    
+    [HttpDelete]
+    public async Task<IActionResult> ExcluirDoacao(int id)
+    {
+        var boll = await service.deletarDoacao(id);
+        return Ok(boll);
     }
 }

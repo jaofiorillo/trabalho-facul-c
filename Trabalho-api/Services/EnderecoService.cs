@@ -24,4 +24,10 @@ public class EnderecoService
         await userService.vincularEndereco(saveEndereco, user);
         return EnderecoResponse.convertFrom(saveEndereco);
     }
+
+    public async Task<List<EnderecoResponse>> getEnderecosByUserId(int id)
+    {
+        var enderecos = await repository.getByUserId(id);
+        return EnderecoResponse.convertFrom(enderecos);
+    }
 }

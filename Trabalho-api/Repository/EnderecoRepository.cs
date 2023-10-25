@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Trabalho_api.Data;
 using Trabalho_api.Models;
 
@@ -17,5 +18,11 @@ public class EnderecoRepository
         dbContext.endereco.Add(endereco);
         await dbContext.SaveChangesAsync();
         return endereco;
+    }
+
+    public async Task<List<Endereco>> getByUserId(int id)
+    {
+        return await dbContext.endereco.Include(e => e.user)
+            .Where(e => e.user.id == id).ToListAsync();
     }
 }

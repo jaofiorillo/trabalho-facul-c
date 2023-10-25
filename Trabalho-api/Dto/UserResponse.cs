@@ -8,7 +8,7 @@ public class UserResponse
     public string nome { get; set; }
     public string email { get; set; }
     public string telefone { get; set; }
-    public List<Endereco> enderecos { get; set; }
+    public List<EnderecoResponse> enderecos { get; set; }
 
     public static UserResponse convertFrom(User user)
     {
@@ -17,7 +17,7 @@ public class UserResponse
         userResponse.nome = user.nome;
         userResponse.email = user.email;
         userResponse.telefone = user.telefone;
-        userResponse.enderecos = user.enderecos;
+        userResponse.enderecos = EnderecoResponse.convertFrom(user.enderecos);
         return userResponse;
     }
 

@@ -22,4 +22,9 @@ public class EnderecoResponse
         doacaoResponse.userNome = endereco.user.nome;
         return doacaoResponse;
     }
+
+    public static List<EnderecoResponse> convertFrom(List<Endereco> enderecos)
+    {
+        return enderecos.Select(endereco => convertFrom(endereco)).ToList();
+    }
 }
