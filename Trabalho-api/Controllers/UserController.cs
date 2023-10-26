@@ -28,7 +28,7 @@ public class UserController : ControllerBase
         var users = await service.getAll();
         return Ok(users);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {

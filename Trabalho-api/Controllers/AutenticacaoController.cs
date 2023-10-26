@@ -8,9 +8,8 @@ namespace Trabalho_api.Controllers;
 [ApiController]
 public class AutenticacaoController : ControllerBase
 {
-    
     private readonly UserService userService;
-    
+
     public AutenticacaoController(UserService UserService)
     {
         userService = UserService;
@@ -20,18 +19,12 @@ public class AutenticacaoController : ControllerBase
     public async Task<ActionResult<dynamic>> Authenticate([FromQuery] string email, [FromQuery] string senha)
     {
         var user = await userService.findUserByEmailAndSenha(email, senha);
-        if (user == null)
-        {
-            return NotFound(new { message = "Email ou senha incorretos" });
-        }
+        if (user == null) return NotFound(new { message = "Email ou senha incorretos" });
 
         var token = TokenService.generateToken(user);
         return new
         {
-            user = UserResponse.convertFrom(user),
-            token = token
+            user = UserResponse.convertFrom(user), token
         };
     }
-    
-    
 }

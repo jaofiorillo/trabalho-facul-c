@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
     {
         dbContext = trabalhoApiContext;
     }
-    
+
     public async Task<List<User?>> findAll()
     {
         return await dbContext.user.Include(u => u.enderecos).ToListAsync();
@@ -23,7 +23,7 @@ public class UserRepository : IUserRepository
         return await dbContext.user.Include(u => u.enderecos)
             .FirstOrDefaultAsync(u => u.id == id);
     }
-    
+
     public async Task<User?> getByEmail(string email)
     {
         return await dbContext.user.FirstOrDefaultAsync(u => u.email == email);
@@ -49,10 +49,10 @@ public class UserRepository : IUserRepository
         await dbContext.SaveChangesAsync();
         return true;
     }
-    
+
     public async Task<User?> getByEmailAndSenha(string email, string senha)
     {
-        return await dbContext.user.Include(u => u.enderecos).
-            FirstOrDefaultAsync(u => u.email == email && u.senha == senha);
+        return await dbContext.user.Include(u => u.enderecos)
+            .FirstOrDefaultAsync(u => u.email == email && u.senha == senha);
     }
 }

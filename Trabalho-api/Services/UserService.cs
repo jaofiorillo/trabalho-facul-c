@@ -14,7 +14,7 @@ public class UserService
     {
         repository = userRepository;
     }
-    
+
     public async Task<UserResponse?> createUser(UserRequest request)
     {
         validarDigitacaoEmail(request.email);
@@ -27,27 +27,21 @@ public class UserService
     {
         var pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
         var regex = new Regex(pattern);
-        if (!regex.IsMatch(email))
-        {
-            throw new Exception("Email invalido");
-        }
+        if (!regex.IsMatch(email)) throw new Exception("Email invalido");
     }
-    
+
     private async Task validarEmailExistente(string email)
     {
         var user = await repository.getByEmail(email);
-        if (user != null)
-        {
-            throw new Exception("Email já cadastrado");
-        }
+        if (user != null) throw new Exception("Email já cadastrado");
     }
-    
+
     public async Task<List<UserResponse?>> getAll()
     {
         var users = await repository.findAll();
         return UserResponse.convertFrom(users);
     }
-    
+
     public async Task<UserResponse?> getById(int id)
     {
         var user = await findUserById(id);
@@ -68,7 +62,7 @@ public class UserService
 
     public async Task<User?> findUserById(int id)
     {
-        var user =  repository.getById(id);
+        var user = repository.getById(id);
         return user != null
             ? await user
             : throw new ValidationException("User não encontrado");
@@ -82,7 +76,7 @@ public class UserService
 
     public async Task<User?> findUserByEmailAndSenha(string email, string senha)
     {
-        var user =  repository.getByEmailAndSenha(email, senha);
+        var user = repository.getByEmailAndSenha(email, senha);
         return user != null
             ? await user
             : throw new ValidationException("User não encontrado");

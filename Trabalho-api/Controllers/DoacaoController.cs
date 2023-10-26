@@ -14,14 +14,14 @@ public class DoacaoController : ControllerBase
     {
         service = userService;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Save(DoacaoRequest request)
     {
         var doacao = await service.save(request);
         return Ok(doacao);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -42,7 +42,7 @@ public class DoacaoController : ControllerBase
         var doacoes = await service.getDoacoesByUserId(id);
         return Ok(doacoes);
     }
-    
+
     [HttpDelete]
     public async Task<IActionResult> ExcluirDoacao(int id)
     {

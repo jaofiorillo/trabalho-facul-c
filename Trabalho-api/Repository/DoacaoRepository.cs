@@ -12,7 +12,7 @@ public class DoacaoRepository : IDoacaoRepository
     {
         dbContext = trabalhoApiContext;
     }
-    
+
     public async Task<List<Doacao>> findAll()
     {
         return await dbContext.doacao.Include(d => d.vendedor).ToListAsync();
@@ -50,7 +50,7 @@ public class DoacaoRepository : IDoacaoRepository
             .FirstOrDefaultAsync(d => d.id == doacaoId);
         return doacao;
     }
-    
+
     public async Task<List<Doacao>> findByVendedor(int id)
     {
         return dbContext.doacao.Include(d => d.vendedor)

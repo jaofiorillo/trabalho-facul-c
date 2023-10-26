@@ -10,7 +10,7 @@ public class EnderecoResponse
     public string uf { get; set; }
     public int userId { get; set; }
     public string userNome { get; set; }
-    
+
     public static EnderecoResponse convertFrom(Endereco endereco)
     {
         var doacaoResponse = new EnderecoResponse();

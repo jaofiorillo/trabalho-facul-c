@@ -9,8 +9,9 @@ public class Doacao
     public int id { get; set; }
     public string nome { get; set; }
     public string descricao { get; set; }
-    [JsonProperty("situacao")]
-    public EProdutoSituacao situacao { get; set; }
+
+    [JsonProperty("situacao")] public EProdutoSituacao situacao { get; set; }
+
     public string file { get; set; }
     public User vendedor { get; set; }
 

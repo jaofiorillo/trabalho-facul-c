@@ -9,7 +9,7 @@ public class Endereco
     public string rua { get; set; }
     public string cidade { get; set; }
     public string uf { get; set; }
-    
+
     public static Endereco of(EnderecoRequest request)
     {
         var endereco = new Endereco();
@@ -23,4 +23,4 @@ public class Endereco
     {
         user = novoUser;
     }
-} 
+}

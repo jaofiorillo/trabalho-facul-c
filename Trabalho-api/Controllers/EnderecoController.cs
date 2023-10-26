@@ -14,14 +14,14 @@ public class EnderecoController : ControllerBase
     {
         service = enderecoService;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Save(EnderecoRequest request)
     {
         var endereco = await service.vincularEndereco(request);
         return Ok(endereco);
     }
-    
+
     [HttpGet("user/{id}")]
     public async Task<IActionResult> GetByUserId(int id)
     {

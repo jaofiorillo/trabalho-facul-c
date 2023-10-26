@@ -15,7 +15,7 @@ public class DoacaoService
         repository = doacaoRepository;
         userService = _userService;
     }
-    
+
     public async Task<DoacaoResponse?> save(DoacaoRequest request)
     {
         var user = await userService.findUserById(request.vendedorId);
@@ -23,7 +23,7 @@ public class DoacaoService
         doacao.pulicarDoacao();
         return DoacaoResponse.convertFrom(await repository.save(doacao));
     }
-    
+
     public async Task<List<DoacaoResponse?>> getAll()
     {
         var doacoes = await repository.findAll();
