@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Trabalho_api.Dto;
 using Trabalho_api.Services;
@@ -24,7 +25,11 @@ public class AutenticacaoController : ControllerBase
         var token = TokenService.generateToken(user);
         return new
         {
-            user = UserResponse.convertFrom(user), token
+            user = UserResponse.convertFrom(user),
+            token = token
         };
     }
+
+    [HttpGet("authenticated")]
+    public string Authenticated() => $"Autenticado - {User.Identity.Name}";
 }

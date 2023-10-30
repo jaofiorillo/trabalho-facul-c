@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Trabalho_api.Dto;
 using Trabalho_api.Services;
@@ -16,6 +17,7 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Save(DoacaoRequest request)
     {
         var doacao = await service.save(request);
@@ -23,6 +25,7 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var doacoes = await service.getAll();
@@ -30,6 +33,7 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpPost("finalizar/{id}")]
+    [Authorize]
     public async Task<IActionResult> FinalizarDoacao(int id)
     {
         var doacao = await service.finalizarSituacaoDoacao(id);
@@ -37,6 +41,7 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpGet("doacoes-usuario/{id}")]
+    [Authorize]
     public async Task<IActionResult> GetDoacoesByUsuario(int id)
     {
         var doacoes = await service.getDoacoesByUserId(id);
@@ -44,6 +49,7 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize]
     public async Task<IActionResult> ExcluirDoacao(int id)
     {
         var boll = await service.deletarDoacao(id);

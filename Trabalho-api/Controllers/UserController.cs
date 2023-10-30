@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Trabalho_api.Dto;
 using Trabalho_api.Services;
@@ -16,6 +17,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> CreateUser(UserRequest request)
     {
         var user = await service.createUser(request);
@@ -23,6 +25,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var users = await service.getAll();
@@ -30,6 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<IActionResult> GetById(int id)
     {
         var user = await service.getById(id);
@@ -37,6 +41,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> AtualizarUser(UserRequest request)
     {
         var user = await service.atualizarUser(request);
@@ -44,6 +49,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteUser(int id)
     {
         var boll = await service.deleteUser(id);

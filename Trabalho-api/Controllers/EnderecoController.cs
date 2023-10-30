@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Trabalho_api.Dto;
 using Trabalho_api.Services;
@@ -16,6 +17,7 @@ public class EnderecoController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Save(EnderecoRequest request)
     {
         var endereco = await service.vincularEndereco(request);
@@ -23,6 +25,7 @@ public class EnderecoController : ControllerBase
     }
 
     [HttpGet("user/{id}")]
+    [Authorize]
     public async Task<IActionResult> GetByUserId(int id)
     {
         var enderecos = await service.getEnderecosByUserId(id);
