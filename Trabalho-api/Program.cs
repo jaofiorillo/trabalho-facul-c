@@ -25,6 +25,8 @@ builder.Services.AddScoped<DoacaoRepository>();
 builder.Services.AddScoped<DoacaoService>();
 builder.Services.AddScoped<EnderecoRepository>();
 builder.Services.AddScoped<EnderecoService>();
+builder.Services.AddScoped<AutenticacaoService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
 

@@ -32,8 +32,13 @@ public class UserService
 
     private async Task validarEmailExistente(string email)
     {
-        var user = await repository.getByEmail(email);
+        var user = await findByEmail(email);
         if (user != null) throw new Exception("Email já cadastrado");
+    }
+
+    public async Task<User?> findByEmail(string email)
+    {
+        return await repository.getByEmail(email);
     }
 
     public async Task<List<UserResponse?>> getAll()

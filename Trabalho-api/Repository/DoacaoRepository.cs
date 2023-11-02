@@ -43,7 +43,7 @@ public class DoacaoRepository : IDoacaoRepository
         await dbContext.SaveChangesAsync();
         return true;
     }
-    
+
     public async Task<Doacao> incluirVendedor(int doacaoId)
     {
         var doacao = await dbContext.doacao.Include(d => d.vendedor)
