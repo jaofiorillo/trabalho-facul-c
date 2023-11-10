@@ -17,7 +17,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> CreateUser(UserRequest request)
     {
         var user = await service.createUser(request);
@@ -25,7 +24,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var users = await service.getAll();

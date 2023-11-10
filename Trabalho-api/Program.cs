@@ -68,9 +68,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseHttpsRedirection();
 app.UseCors();
+app.UseAuthorization();
+app.UseAuthentication();
+app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
