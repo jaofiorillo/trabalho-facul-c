@@ -14,14 +14,17 @@ public class Doacao
 
     public string file { get; set; }
     public User vendedor { get; set; }
+    
+    public Endereco endereco { get; set; }
 
-    public static Doacao of(DoacaoRequest request, User user)
+    public static Doacao of(DoacaoRequest request, User user, Endereco endereco)
     {
         var doacao = new Doacao();
         doacao.nome = request.nome;
         doacao.descricao = request.descricao;
         doacao.file = request.file;
         doacao.vendedor = user;
+        doacao.endereco = endereco;
         return doacao;
     }
 

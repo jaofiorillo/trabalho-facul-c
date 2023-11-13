@@ -18,7 +18,7 @@ public class DoacaoController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> Save(DoacaoRequest request)
+    public async Task<IActionResult> Save([FromBody] DoacaoRequest request)
     {
         var doacao = await service.save(request);
         return Ok(doacao);

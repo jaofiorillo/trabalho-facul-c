@@ -17,7 +17,9 @@ public class UserResponse
         userResponse.nome = user.nome;
         userResponse.email = user.email;
         userResponse.telefone = user.telefone;
-        userResponse.enderecos = EnderecoResponse.convertFrom(user.enderecos);
+        userResponse.enderecos = user.enderecos != null 
+            ? EnderecoResponse.convertFrom(user.enderecos)
+            : Enumerable.Empty<EnderecoResponse>().ToList();;
         return userResponse;
     }
 

@@ -25,4 +25,9 @@ public class User
     {
         enderecos.Add(endereco);
     }
+
+    public bool hasEnderecos()
+    {
+        return enderecos != null && enderecos.Count > 0;
+    }
 }

@@ -8,20 +8,32 @@ namespace Trabalho_api.Services;
 public class DoacaoService
 {
     private readonly DoacaoRepository repository;
-    private readonly UserService userService;
+    private readonly EnderecoService enderecoService;
+    private readonly AutenticacaoService autenticacaoService;
 
-    public DoacaoService(DoacaoRepository doacaoRepository, UserService _userService)
+    public DoacaoService(DoacaoRepository doacaoRepository, EnderecoService _enderecoService, AutenticacaoService _autenticacaoService)
     {
         repository = doacaoRepository;
-        userService = _userService;
+        enderecoService = _enderecoService;
+        autenticacaoService = _autenticacaoService;
     }
 
     public async Task<DoacaoResponse?> save(DoacaoRequest request)
     {
-        var user = await userService.findUserById(request.vendedorId);
-        var doacao = Doacao.of(request, user);
+        var user = await autenticacaoService.getUsuarioAutenticado();
+        validarEndereco(user);
+        var endereco = await enderecoService.findEndercoById(request.enderecoId);
+        var doacao = Doacao.of(request, user, endereco);
         doacao.pulicarDoacao();
         return DoacaoResponse.convertFrom(await repository.save(doacao));
+    }
+
+    private void validarEndereco(User user)
+    {
+        if (!user.hasEnderecos())
+        {
+            throw new ValidationException("É necessario ter um endereço vinculado para realizar a doação");
+        }
     }
 
     public async Task<List<DoacaoResponse?>> getAll()

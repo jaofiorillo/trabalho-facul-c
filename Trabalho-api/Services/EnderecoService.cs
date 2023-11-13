@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Trabalho_api.Dto;
 using Trabalho_api.Models;
 using Trabalho_api.Repository;
@@ -29,5 +30,13 @@ public class EnderecoService
     {
         var enderecos = await repository.getByUserId(id);
         return EnderecoResponse.convertFrom(enderecos);
+    }
+    
+    public async Task<Endereco?> findEndercoById(int id)
+    {
+        var user = repository.getById(id);
+        return user != null
+            ? await user
+            : throw new ValidationException("Endereço não encontrado");
     }
 }

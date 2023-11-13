@@ -28,6 +28,9 @@ namespace Trabalho_api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("enderecoid")
+                        .HasColumnType("int");
+
                     b.Property<string>("file")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -35,9 +38,6 @@ namespace Trabalho_api.Migrations
                     b.Property<string>("nome")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<float>("preco")
-                        .HasColumnType("float");
 
                     b.Property<string>("situacao")
                         .IsRequired()
@@ -47,6 +47,8 @@ namespace Trabalho_api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("enderecoid");
 
                     b.HasIndex("vendedorid");
 
@@ -143,11 +145,19 @@ namespace Trabalho_api.Migrations
 
             modelBuilder.Entity("Trabalho_api.Models.Doacao", b =>
                 {
+                    b.HasOne("Trabalho_api.Models.Endereco", "endereco")
+                        .WithMany()
+                        .HasForeignKey("enderecoid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Trabalho_api.Models.User", "vendedor")
                         .WithMany()
                         .HasForeignKey("vendedorid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("endereco");
 
                     b.Navigation("vendedor");
                 });

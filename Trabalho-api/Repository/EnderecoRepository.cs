@@ -25,4 +25,9 @@ public class EnderecoRepository
         return await dbContext.endereco.Include(e => e.user)
             .Where(e => e.user.id == id).ToListAsync();
     }
+    
+    public async Task<Endereco?> getById(int id)
+    {
+        return await dbContext.endereco.FirstOrDefaultAsync(e => e.id == id);
+    }
 }

@@ -11,7 +11,8 @@ public class DoacaoResponse
     public string file { get; set; }
     public int vendedorId { get; set; }
     public string vendedorNome { get; set; }
-
+    public int enderecoId { get; set; } 
+    
     public static DoacaoResponse convertFrom(Doacao doacao)
     {
         var doacaoResponse = new DoacaoResponse();
@@ -21,6 +22,7 @@ public class DoacaoResponse
         doacaoResponse.situacao = doacao.situacao.ToString();
         doacaoResponse.vendedorId = doacao.vendedor.id;
         doacaoResponse.vendedorNome = doacao.vendedor.nome;
+        doacaoResponse.enderecoId = doacao.endereco.id;
         return doacaoResponse;
     }
 
