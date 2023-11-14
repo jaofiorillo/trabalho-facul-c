@@ -12,5 +12,4 @@ public class EnderecoRequest
 
     [Required] [StringLength(100)] public string uf { get; set; }
 
-    [Required] public int userId { get; set; }
 }

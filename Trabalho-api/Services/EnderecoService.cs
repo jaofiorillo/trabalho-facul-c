@@ -9,16 +9,18 @@ public class EnderecoService
 {
     private readonly EnderecoRepository repository;
     private readonly UserService userService;
+    private readonly AutenticacaoService autenticacaoService;
 
-    public EnderecoService(UserService UserService, EnderecoRepository enderecoRepository)
+    public EnderecoService(UserService UserService, EnderecoRepository enderecoRepository, AutenticacaoService _autenticacaoService)
     {
         userService = UserService;
         repository = enderecoRepository;
+        autenticacaoService = _autenticacaoService;
     }
 
     public async Task<EnderecoResponse> vincularEndereco(EnderecoRequest request)
     {
-        var user = await userService.findUserById(request.userId);
+        var user = await autenticacaoService.getUsuarioAutenticado();
         var endereco = Endereco.of(request);
         endereco.vincularUser(user);
         var saveEndereco = await repository.save(endereco);
