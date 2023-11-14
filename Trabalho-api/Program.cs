@@ -59,9 +59,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-string porta = Environment.GetEnvironmentVariable("PORT") ?? "3000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{porta}");
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
