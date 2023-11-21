@@ -15,6 +15,21 @@ namespace Trabalho_api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "categoria",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    nome = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_categoria", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "user",
                 columns: table => new
                 {
@@ -76,11 +91,19 @@ namespace Trabalho_api.Migrations
                     file = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     vendedorid = table.Column<int>(type: "int", nullable: false),
-                    enderecoid = table.Column<int>(type: "int", nullable: false)
+                    enderecoid = table.Column<int>(type: "int", nullable: false),
+                    categoriaid = table.Column<int>(type: "int", nullable: false),
+                    quantidade = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_doacao", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_doacao_categoria_categoriaid",
+                        column: x => x.categoriaid,
+                        principalTable: "categoria",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_doacao_endereco_enderecoid",
                         column: x => x.enderecoid,
@@ -130,6 +153,11 @@ namespace Trabalho_api.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_doacao_categoriaid",
+                table: "doacao",
+                column: "categoriaid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_doacao_enderecoid",
                 table: "doacao",
                 column: "enderecoid");
@@ -163,6 +191,9 @@ namespace Trabalho_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "empresa");
+
+            migrationBuilder.DropTable(
+                name: "categoria");
 
             migrationBuilder.DropTable(
                 name: "endereco");

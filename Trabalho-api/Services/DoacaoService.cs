@@ -7,15 +7,18 @@ namespace Trabalho_api.Services;
 
 public class DoacaoService
 {
-    private readonly DoacaoRepository repository;
-    private readonly EnderecoService enderecoService;
     private readonly AutenticacaoService autenticacaoService;
+    private readonly CategoriaService categoriaService;
+    private readonly EnderecoService enderecoService;
+    private readonly DoacaoRepository repository;
 
-    public DoacaoService(DoacaoRepository doacaoRepository, EnderecoService _enderecoService, AutenticacaoService _autenticacaoService)
+    public DoacaoService(DoacaoRepository doacaoRepository, EnderecoService _enderecoService,
+        AutenticacaoService _autenticacaoService, CategoriaService _categoriaService)
     {
         repository = doacaoRepository;
         enderecoService = _enderecoService;
         autenticacaoService = _autenticacaoService;
+        categoriaService = _categoriaService;
     }
 
     public async Task<DoacaoResponse?> save(DoacaoRequest request)
@@ -23,7 +26,8 @@ public class DoacaoService
         var user = await autenticacaoService.getUsuarioAutenticado();
         validarEndereco(user);
         var endereco = await enderecoService.findEndercoById(request.enderecoId);
-        var doacao = Doacao.of(request, user, endereco);
+        var categoria = await categoriaService.findById(request.categoriaId);
+        var doacao = Doacao.of(request, user, endereco, categoria);
         doacao.pulicarDoacao();
         return DoacaoResponse.convertFrom(await repository.save(doacao));
     }
@@ -31,9 +35,7 @@ public class DoacaoService
     private void validarEndereco(User user)
     {
         if (!user.hasEnderecos())
-        {
             throw new ValidationException("É necessario ter um endereço vinculado para realizar a doação");
-        }
     }
 
     public async Task<List<DoacaoResponse?>> getAll()

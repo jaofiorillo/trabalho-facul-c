@@ -32,7 +32,6 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [Authorize]
     public async Task<IActionResult> GetById(int id)
     {
         var user = await service.getById(id);

@@ -14,6 +14,7 @@ public class Trabalho_apiContext : DbContext
     public DbSet<Endereco> endereco { get; set; } = default!;
     public DbSet<Doacao> doacao { get; set; } = default!;
     public DbSet<Empresa> empresa { get; set; } = default!;
+    public DbSet<Categoria> categoria { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -25,7 +25,6 @@ public class DoacaoController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var doacoes = await service.getAll();

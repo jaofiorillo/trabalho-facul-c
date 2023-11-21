@@ -9,10 +9,14 @@ public class DoacaoResponse
     public string descricao { get; set; }
     public string situacao { get; set; }
     public string file { get; set; }
+    public string categoria { get; set; }
+    public int categoriaId { get; set; }
+    public int quantidade { get; set; }
     public int vendedorId { get; set; }
     public string vendedorNome { get; set; }
-    public int enderecoId { get; set; } 
-    
+    public string userFile { get; set; }
+    public EnderecoResponse endereco { get; set; }
+
     public static DoacaoResponse convertFrom(Doacao doacao)
     {
         var doacaoResponse = new DoacaoResponse();
@@ -22,7 +26,10 @@ public class DoacaoResponse
         doacaoResponse.situacao = doacao.situacao.ToString();
         doacaoResponse.vendedorId = doacao.vendedor.id;
         doacaoResponse.vendedorNome = doacao.vendedor.nome;
-        doacaoResponse.enderecoId = doacao.endereco.id;
+        doacaoResponse.endereco = EnderecoResponse.convertFrom(doacao.endereco);
+        doacaoResponse.quantidade = doacao.quantidade;
+        doacaoResponse.categoria = doacao.categoria.nome;
+        doacaoResponse.categoriaId = doacao.categoria.id;
         return doacaoResponse;
     }
 

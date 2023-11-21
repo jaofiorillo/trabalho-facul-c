@@ -34,7 +34,7 @@
         <Compile Remove="blaController.cs"/>
         <Compile Remove="Migrations\20230904223903_inicial.cs"/>
         <Compile Remove="Migrations\20230904223903_inicial.Designer.cs"/>
-        <Compile Remove="Migrations\20230915184847_inicial.cs" />
+        <Compile Remove="Migrations\20230915184847_inicial.cs"/>
     </ItemGroup>
 
 
@@ -48,7 +48,7 @@
 
 
     <ItemGroup>
-      <Folder Include="Migrations\" />
+        <Folder Include="Migrations\"/>
     </ItemGroup>
 
 </Project>

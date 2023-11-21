@@ -16,7 +16,8 @@ public class DoacaoRepository : IDoacaoRepository
     public async Task<List<Doacao>> findAll()
     {
         return await dbContext.doacao.Include(d => d.vendedor)
-            .Include(e => e.endereco).ToListAsync();
+            .Include(e => e.endereco)
+            .Include(c => c.categoria).ToListAsync();
     }
 
     public async Task<Doacao?> getById(int id)

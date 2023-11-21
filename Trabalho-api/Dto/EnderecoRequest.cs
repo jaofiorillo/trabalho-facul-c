@@ -11,5 +11,4 @@ public class EnderecoRequest
     [Required] [StringLength(100)] public string cidade { get; set; }
 
     [Required] [StringLength(100)] public string uf { get; set; }
-
 }

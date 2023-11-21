@@ -10,7 +10,7 @@ using Trabalho_api.Data;
 namespace Trabalho_api.Migrations
 {
     [DbContext(typeof(Trabalho_apiContext))]
-    [Migration("20231113224410_inicial")]
+    [Migration("20231120171054_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -21,10 +21,28 @@ namespace Trabalho_api.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Trabalho_api.Models.Categoria", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("id");
+
+                    b.ToTable("categoria");
+                });
+
             modelBuilder.Entity("Trabalho_api.Models.Doacao", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("categoriaid")
                         .HasColumnType("int");
 
                     b.Property<string>("descricao")
@@ -42,6 +60,9 @@ namespace Trabalho_api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("quantidade")
+                        .HasColumnType("int");
+
                     b.Property<string>("situacao")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -50,6 +71,8 @@ namespace Trabalho_api.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("categoriaid");
 
                     b.HasIndex("enderecoid");
 
@@ -148,6 +171,12 @@ namespace Trabalho_api.Migrations
 
             modelBuilder.Entity("Trabalho_api.Models.Doacao", b =>
                 {
+                    b.HasOne("Trabalho_api.Models.Categoria", "categoria")
+                        .WithMany()
+                        .HasForeignKey("categoriaid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Trabalho_api.Models.Endereco", "endereco")
                         .WithMany()
                         .HasForeignKey("enderecoid")
@@ -159,6 +188,8 @@ namespace Trabalho_api.Migrations
                         .HasForeignKey("vendedorid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("categoria");
 
                     b.Navigation("endereco");
 

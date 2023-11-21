@@ -10,15 +10,6 @@ public class Endereco
     public string rua { get; set; }
     public string cidade { get; set; }
     public string uf { get; set; }
-    
-    public Endereco(int id)
-    {
-        this.id = id;
-    }
-    
-    public Endereco()
-    {
-    }
 
     public static Endereco of(EnderecoRequest request)
     {

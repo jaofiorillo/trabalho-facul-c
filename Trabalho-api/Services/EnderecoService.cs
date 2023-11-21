@@ -7,11 +7,12 @@ namespace Trabalho_api.Services;
 
 public class EnderecoService
 {
+    private readonly AutenticacaoService autenticacaoService;
     private readonly EnderecoRepository repository;
     private readonly UserService userService;
-    private readonly AutenticacaoService autenticacaoService;
 
-    public EnderecoService(UserService UserService, EnderecoRepository enderecoRepository, AutenticacaoService _autenticacaoService)
+    public EnderecoService(UserService UserService, EnderecoRepository enderecoRepository,
+        AutenticacaoService _autenticacaoService)
     {
         userService = UserService;
         repository = enderecoRepository;
@@ -33,7 +34,7 @@ public class EnderecoService
         var enderecos = await repository.getByUserId(id);
         return EnderecoResponse.convertFrom(enderecos);
     }
-    
+
     public async Task<Endereco?> findEndercoById(int id)
     {
         var user = repository.getById(id);
