@@ -12,12 +12,12 @@ public class CategoriaRepository
     {
         dbContext = trabalhoApiContext;
     }
-    
+
     public async Task<List<Categoria?>> findAll()
     {
         return await dbContext.categoria.ToListAsync();
     }
-    
+
     public async Task<Categoria?> getById(int id)
     {
         return await dbContext.categoria.FirstOrDefaultAsync(c => c.id == id);

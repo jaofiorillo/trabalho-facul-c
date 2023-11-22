@@ -46,6 +46,14 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    [HttpPut("atualizar-file/{id}")]
+    [Authorize]
+    public async Task<IActionResult> AtualizarFile(UserFile file, int id)
+    {
+        var user = await service.atualizarFile(file, id);
+        return Ok(user);
+    }
+
     [HttpDelete("{id}")]
     [Authorize]
     public async Task<IActionResult> DeleteUser(int id)

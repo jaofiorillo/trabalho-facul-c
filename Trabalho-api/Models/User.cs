@@ -10,14 +10,16 @@ public class User
     public string telefone { get; set; }
     public List<Endereco> enderecos { get; set; }
     public string senha { get; set; }
+    public string file { get; set; }
 
-    public static User? of(UserRequest request)
+    public static User of(UserRequest request)
     {
         var user = new User();
         user.nome = request.nome;
         user.email = request.email;
         user.senha = request.senha;
         user.telefone = request.telefone;
+        user.file = request.file;
         return user;
     }
 
@@ -29,5 +31,10 @@ public class User
     public bool hasEnderecos()
     {
         return enderecos != null && enderecos.Count > 0;
+    }
+
+    public void atualizarFile(string requestFile)
+    {
+        file = requestFile;
     }
 }

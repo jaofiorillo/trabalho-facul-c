@@ -3,6 +3,7 @@ using Trabalho_api.Services;
 
 namespace Trabalho_api.Controllers;
 
+[ApiController]
 [Route("api/categoria")]
 public class CategoriaController : ControllerBase
 {
@@ -12,7 +13,7 @@ public class CategoriaController : ControllerBase
     {
         service = categoriaService;
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

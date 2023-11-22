@@ -51,7 +51,8 @@ namespace Trabalho_api.Migrations
 
                     b.Property<string>("file")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasMaxLength(4000);
 
                     b.Property<string>("nome")
                         .IsRequired()
@@ -148,6 +149,11 @@ namespace Trabalho_api.Migrations
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("file")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasMaxLength(4000);
 
                     b.Property<string>("nome")
                         .IsRequired()

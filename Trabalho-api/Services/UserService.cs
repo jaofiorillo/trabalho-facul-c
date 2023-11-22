@@ -59,6 +59,13 @@ public class UserService
         return await repository.atualizar(User.of(request));
     }
 
+    public async Task<User?> atualizarFile(UserFile userFile, int id)
+    {
+        var user = await findUserById(id);
+        user.atualizarFile(userFile.file);
+        return await repository.atualizar(user);
+    }
+
     public async Task<bool> deleteUser(int id)
     {
         var user = await repository.getById(id);

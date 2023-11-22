@@ -24,8 +24,10 @@ public class DoacaoResponse
         doacaoResponse.nome = doacao.nome;
         doacaoResponse.descricao = doacao.descricao;
         doacaoResponse.situacao = doacao.situacao.ToString();
+        doacaoResponse.file = doacao.file;
         doacaoResponse.vendedorId = doacao.vendedor.id;
         doacaoResponse.vendedorNome = doacao.vendedor.nome;
+        doacaoResponse.userFile = doacao.vendedor.file;
         doacaoResponse.endereco = EnderecoResponse.convertFrom(doacao.endereco);
         doacaoResponse.quantidade = doacao.quantidade;
         doacaoResponse.categoria = doacao.categoria.nome;

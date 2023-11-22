@@ -10,7 +10,7 @@ using Trabalho_api.Data;
 namespace Trabalho_api.Migrations
 {
     [DbContext(typeof(Trabalho_apiContext))]
-    [Migration("20231120171054_inicial")]
+    [Migration("20231121170006_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -54,7 +54,8 @@ namespace Trabalho_api.Migrations
 
                     b.Property<string>("file")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasMaxLength(4000);
 
                     b.Property<string>("nome")
                         .IsRequired()
@@ -151,6 +152,11 @@ namespace Trabalho_api.Migrations
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("file")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasMaxLength(4000);
 
                     b.Property<string>("nome")
                         .IsRequired()

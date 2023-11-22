@@ -12,17 +12,15 @@ public class CategoriaService
     {
         repository = _repository;
     }
-    
+
     public async Task<Categoria> findById(int id)
     {
         return await repository.getById(id);
     }
-    
+
     public async Task<List<CategoriaResponse>> getAll()
     {
         var categorias = await repository.findAll();
         return CategoriaResponse.convertFrom(categorias);
     }
-    
-    
 }
