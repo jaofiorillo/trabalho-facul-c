@@ -23,4 +23,17 @@ public class CategoriaService
         var categorias = await repository.findAll();
         return CategoriaResponse.convertFrom(categorias);
     }
+
+    public async Task<Categoria?> saveCategoria(string nome)
+    {
+        var categoria = Categoria.of(nome);
+        return await repository.save(categoria);
+    }
+    
+    public async Task<Categoria?> editarCategoria(string nome, int id)
+    {
+        var categoria = await repository.getById(id);
+        categoria.nome = nome;
+        return await repository.atualizar(categoria);
+    }
 }

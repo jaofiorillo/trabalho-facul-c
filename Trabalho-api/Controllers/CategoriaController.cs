@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Trabalho_api.Models;
 using Trabalho_api.Services;
 
 namespace Trabalho_api.Controllers;
@@ -18,6 +19,20 @@ public class CategoriaController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var categoria = await service.getAll();
+        return Ok(categoria);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Cadastrar(string nome)
+    {
+        var categoria = await service.saveCategoria(nome);
+        return Ok(categoria);
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> editarCategoia(string nome, int id)
+    {
+        var categoria = await service.editarCategoria(nome, id);
         return Ok(categoria);
     }
 }

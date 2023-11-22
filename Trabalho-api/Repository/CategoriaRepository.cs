@@ -22,4 +22,18 @@ public class CategoriaRepository
     {
         return await dbContext.categoria.FirstOrDefaultAsync(c => c.id == id);
     }
+    
+    public async Task<Categoria?> save(Categoria categoria)
+    {
+        dbContext.categoria.Add(categoria);
+        await dbContext.SaveChangesAsync();
+        return categoria;
+    }
+    
+    public async Task<Categoria?> atualizar(Categoria categoria)
+    {
+        dbContext.Update(categoria);
+        await dbContext.SaveChangesAsync();
+        return categoria;
+    }
 }
